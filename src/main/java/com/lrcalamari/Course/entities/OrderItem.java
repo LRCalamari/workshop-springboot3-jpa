@@ -8,14 +8,13 @@ import com.lrcalamari.Course.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	@EmbeddedId
 	private OrderItemPK id = new OrderItemPK();
-
 	private Integer quantity;
 	private Double price;
 	public OrderItem() {
@@ -27,7 +26,6 @@ public class OrderItem implements Serializable {
 		this.quantity = quantity;
 		this.price = price;
 	}
-
 	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
@@ -53,6 +51,11 @@ public class OrderItem implements Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	public Double getSubTotal() {
+		return price * quantity;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
